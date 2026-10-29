@@ -1,0 +1,1877 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Game Storm Studios - Leading game development company delivering exceptional gaming experiences for mobile, PC, and console platforms.">
+    <title>Game Storm Studios - Game Development & Publishing</title>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* ============================================
+           CSS VARIABLES & ROOT SETTINGS
+        ============================================ */
+        :root {
+            --primary-red: #FF0000;
+            --dark-red: #c10009;
+            --darker-red: #850909;
+            --primary-blue: #1a1a5e;
+            --dark-bg: #222f3d;
+            --darker-bg: #1a2530;
+            --text-dark: #333333;
+            --text-medium: #555555;
+            --text-light: #666666;
+            --white: #ffffff;
+            --off-white: #f5f5f5;
+            --alice-blue: aliceblue;
+            
+            --spacing-xs: 0.25rem;
+            --spacing-sm: 0.5rem;
+            --spacing-md: 1rem;
+            --spacing-lg: 1.5rem;
+            --spacing-xl: 2rem;
+            --spacing-xxl: 3rem;
+            
+            --border-radius-sm: 5px;
+            --border-radius-md: 10px;
+            --border-radius-lg: 15px;
+            --border-radius-xl: 20px;
+            
+            --font-primary: Arial, sans-serif;
+            --font-bold: 'Arial Black', sans-serif;
+            
+            --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
+            --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.2);
+            --shadow-lg: 0 6px 15px rgba(0, 0, 0, 0.12);
+            
+            --transition-fast: 0.2s ease;
+            --transition-normal: 0.3s ease;
+            
+            --header-height: 80px;
+            --container-max-width: 1400px;
+        }
+
+        /* ============================================
+           RESET & BASE STYLES
+        ============================================ */
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-primary);
+            line-height: 1.6;
+            color: var(--text-dark);
+            overflow-x: hidden;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: color var(--transition-fast);
+        }
+
+        button {
+            cursor: pointer;
+            border: none;
+            font-family: inherit;
+            transition: all var(--transition-normal);
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        /* ============================================
+           UTILITY CLASSES
+        ============================================ */
+        .container {
+            max-width: var(--container-max-width);
+            margin: 0 auto;
+            padding: 0 var(--spacing-lg);
+        }
+
+        .visually-hidden {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+
+        /* ============================================
+           HEADER STYLES
+        ============================================ */
+        .header {
+            background-color: var(--primary-red);
+            padding: var(--spacing-md) var(--spacing-lg);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 3px solid var(--primary-red);
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 2px 4px rgba(255, 0, 0, 0.3);
+        }
+
+        /* Logo */
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            flex-shrink: 0;
+        }
+
+        .logo-img {
+            width: 60px;
+            height: auto;
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo-main {
+            color: var(--white);
+            font-size: 1.25rem;
+            font-weight: bold;
+            font-style: oblique;
+            line-height: 1.2;
+        }
+
+        .logo-sub {
+            font-size: 0.875rem;
+            color: var(--white);
+            letter-spacing: 3px;
+        }
+
+        /* Navigation */
+        .nav {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-lg);
+        }
+
+        .nav a {
+            color: var(--white);
+            font-size: 1rem;
+            font-weight: 500;
+            padding: var(--spacing-sm) var(--spacing-md);
+            border-radius: var(--border-radius-sm);
+            transition: all var(--transition-fast);
+        }
+
+        .nav a:hover,
+        .nav a:focus {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: var(--white);
+        }
+
+        /* Header Actions */
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-lg);
+        }
+
+        .search-btn {
+            background: transparent;
+            color: var(--white);
+            font-size: 1.2rem;
+            padding: var(--spacing-sm);
+        }
+
+        .search-btn:hover {
+            opacity: 0.8;
+        }
+
+        .lang-selector {
+            display: flex;
+            gap: var(--spacing-sm);
+        }
+
+        .lang-selector button {
+            background: transparent;
+            padding: var(--spacing-xs);
+            border-radius: var(--border-radius-sm);
+        }
+
+        .lang-selector button:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .flag {
+            width: 25px;
+            height: auto;
+        }
+
+        /* Mobile Menu Toggle */
+        .menu-toggle {
+            display: none;
+            background: transparent;
+            color: var(--white);
+            font-size: 1.5rem;
+            padding: var(--spacing-sm);
+        }
+
+        /* ============================================
+           HERO SECTION
+        ============================================ */
+        .hero {
+            background-image: url('fatima.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            min-height: 100vh;
+            padding-top: calc(var(--header-height) + var(--spacing-xxl));
+            padding-bottom: var(--spacing-xxl);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .hero-content {
+            padding: var(--spacing-xl);
+            max-width: 600px;
+        }
+
+        .hero-title {
+            color: var(--white);
+            font-size: 1.4rem;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            line-height: 1.5;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .hero-desc {
+            color: var(--white);
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: var(--spacing-xl);
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn-main {
+            background-color: var(--primary-red);
+            color: var(--white);
+            padding: var(--spacing-lg) var(--spacing-xl);
+            border-radius: var(--border-radius-lg);
+            font-size: 1.2rem;
+            font-weight: 600;
+            border: 2px solid var(--dark-red);
+            display: inline-block;
+        }
+
+        .btn-main:hover,
+        .btn-main:focus {
+            background-color: var(--dark-red);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .hero-img {
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            max-width: 50%;
+            pointer-events: none;
+        }
+
+        .hero-img img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* ============================================
+           STATS SECTION
+        ============================================ */
+        .stats-box {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: var(--spacing-lg);
+            background-color: var(--white);
+            padding: var(--spacing-xl);
+            border-radius: var(--border-radius-md);
+            box-shadow: var(--shadow-lg);
+            max-width: 900px;
+            margin: var(--spacing-xxl) auto;
+            flex-wrap: wrap;
+        }
+
+        .stat {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            flex: 1;
+            min-width: 150px;
+            padding: var(--spacing-md);
+        }
+
+        .stat-num {
+            color: var(--primary-red);
+            font-size: 2rem;
+            font-weight: bold;
+            font-family: var(--font-bold);
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .stat-label {
+            color: rgba(0, 0, 0, 0.7);
+            font-size: 0.75rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* ============================================
+           LIBRARY SECTION
+        ============================================ */
+        .library {
+            background: var(--dark-bg);
+            padding: var(--spacing-xxl);
+            border-radius: var(--border-radius-xl);
+            margin: var(--spacing-xl) var(--spacing-lg);
+        }
+
+        .library-inner {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: var(--spacing-xxl);
+            align-items: start;
+        }
+
+        .library-side {
+            position: sticky;
+            top: calc(var(--header-height) + var(--spacing-xl));
+        }
+
+        .library-side h2 {
+            font-size: 2.5rem;
+            color: wheat;
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .library-char {
+            max-width: 100%;
+            margin-top: var(--spacing-xl);
+        }
+
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            gap: var(--spacing-lg);
+        }
+
+        .game-card {
+            background: var(--darker-bg);
+            border-radius: var(--border-radius-md);
+            overflow: hidden;
+            transition: all var(--transition-normal);
+            cursor: pointer;
+        }
+
+        .game-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(26, 26, 94, 0.5);
+        }
+
+        .game-card img {
+            width: 100%;
+            height: 110px;
+            object-fit: cover;
+        }
+
+        /* ============================================
+           SERVICES SECTION
+        ============================================ */
+        .services {
+            padding: var(--spacing-xxl) var(--spacing-lg);
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: var(--spacing-xxl);
+        }
+
+        .title-flex {
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            gap: var(--spacing-xl);
+            max-width: 900px;
+            margin: 0 auto var(--spacing-xxl);
+        }
+
+        .trophy-img {
+            width: 80px;
+            height: auto;
+            flex-shrink: 0;
+        }
+
+        .title-content h2 {
+            font-size: 1.75rem;
+            margin-bottom: var(--spacing-md);
+            color: var(--text-dark);
+        }
+
+        .title-content p {
+            color: var(--text-light);
+            line-height: 1.8;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--spacing-xl);
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .service-item {
+            background-color: var(--off-white);
+            padding: var(--spacing-xl);
+            border-radius: var(--border-radius-md);
+            transition: all var(--transition-normal);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-item:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .service-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            transition: all var(--transition-normal);
+        }
+
+        .service-item:nth-child(1)::before { background: linear-gradient(180deg, #FF6B6B, #FF8E53); }
+        .service-item:nth-child(2)::before { background: linear-gradient(180deg, #4ECDC4, #44A08D); }
+        .service-item:nth-child(3)::before { background: linear-gradient(180deg, #FFD166, #FF9A3C); }
+        .service-item:nth-child(4)::before { background: linear-gradient(180deg, #06D6A0, #1B9AAA); }
+        .service-item:nth-child(5)::before { background: linear-gradient(180deg, #118AB2, #073B4C); }
+        .service-item:nth-child(6)::before { background: linear-gradient(180deg, #7209B7, #3A0CA3); }
+        .service-item:nth-child(7)::before { background: linear-gradient(180deg, #F72585, #B5179E); }
+        .service-item:nth-child(8)::before { background: linear-gradient(180deg, #4361EE, #3A0CA3); }
+        .service-item:nth-child(9)::before { background: linear-gradient(180deg, #FF9E00, #FF5E00); }
+
+        .service-header {
+            display: flex;
+            align-items: flex-start;
+            gap: var(--spacing-md);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .service-icon {
+            font-size: 2rem;
+            flex-shrink: 0;
+            transition: all var(--transition-normal);
+        }
+
+        /* Colorful service icons */
+        .service-item:nth-child(1) .service-icon { color: #FF6B6B; }
+        .service-item:nth-child(2) .service-icon { color: #4ECDC4; }
+        .service-item:nth-child(3) .service-icon { color: #FFD166; }
+        .service-item:nth-child(4) .service-icon { color: #06D6A0; }
+        .service-item:nth-child(5) .service-icon { color: #118AB2; }
+        .service-item:nth-child(6) .service-icon { color: #7209B7; }
+        .service-item:nth-child(7) .service-icon { color: #F72585; }
+        .service-item:nth-child(8) .service-icon { color: #4361EE; }
+        .service-item:nth-child(9) .service-icon { color: #FF9E00; }
+
+        .service-item:hover .service-icon {
+            transform: scale(1.2) rotate(5deg);
+        }
+
+        .service-item h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            line-height: 1.3;
+        }
+
+        .service-item p {
+            color: var(--text-light);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* ============================================
+           PARTNER SECTION
+        ============================================ */
+        .partner {
+            padding: var(--spacing-xxl) var(--spacing-lg);
+            text-align: center;
+        }
+
+        .partner h2 {
+            font-size: 2rem;
+            margin-bottom: var(--spacing-lg);
+            color: var(--text-dark);
+        }
+
+        .partner > p {
+            max-width: 800px;
+            margin: 0 auto var(--spacing-xl);
+            color: var(--text-light);
+            line-height: 1.8;
+        }
+
+        .btn-red {
+            background-color: var(--primary-red);
+            color: var(--white);
+            padding: var(--spacing-md) var(--spacing-xl);
+            border-radius: var(--border-radius-sm);
+            font-size: 1.1rem;
+            display: inline-block;
+            margin-top: var(--spacing-xl);
+        }
+
+        .btn-red:hover {
+            background-color: var(--dark-red);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        /* ============================================
+           TECH STACK SECTION
+        ============================================ */
+        .tech {
+            padding: var(--spacing-xxl) var(--spacing-lg);
+            background-color: var(--white);
+        }
+
+        .tech .section-title h2 {
+            font-size: 2rem;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .tech .section-title p {
+            max-width: 800px;
+            margin: 0 auto;
+            color: var(--text-light);
+        }
+
+        .tech .section-title .highlight {
+            color: var(--text-dark);
+            font-weight: 600;
+        }
+
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: var(--spacing-xl);
+            max-width: 1200px;
+            margin: var(--spacing-xxl) auto 0;
+        }
+
+        .tech-item {
+            background-color: var(--off-white);
+            padding: var(--spacing-xl);
+            box-shadow: var(--shadow-md);
+            transition: all var(--transition-normal);
+            text-align: center;
+            border-radius: var(--border-radius-md);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tech-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-red), var(--primary-blue));
+            transform: scaleX(0);
+            transition: transform var(--transition-normal);
+        }
+
+        .tech-item:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .tech-item:hover::before {
+            transform: scaleX(1);
+        }
+
+        .tech-icon {
+            font-size: 2.5rem;
+            margin-bottom: var(--spacing-md);
+            display: block;
+            transition: all var(--transition-normal);
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Colorful tech icons */
+        .tech-item:nth-child(1) .tech-icon { color: #FF6B6B; background: linear-gradient(45deg, #FF6B6B, #FF8E53); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .tech-item:nth-child(2) .tech-icon { color: #4ECDC4; background: linear-gradient(45deg, #4ECDC4, #44A08D); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .tech-item:nth-child(3) .tech-icon { color: #118AB2; background: linear-gradient(45deg, #118AB2, #073B4C); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .tech-item:nth-child(4) .tech-icon { color: #06D6A0; background: linear-gradient(45deg, #06D6A0, #1B9AAA); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .tech-item:nth-child(5) .tech-icon { color: #7209B7; background: linear-gradient(45deg, #7209B7, #3A0CA3); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .tech-item:nth-child(6) .tech-icon { color: #F72585; background: linear-gradient(45deg, #F72585, #B5179E); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .tech-item:nth-child(7) .tech-icon { color: #FFD166; background: linear-gradient(45deg, #FFD166, #FF9A3C); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .tech-item:nth-child(8) .tech-icon { color: #4361EE; background: linear-gradient(45deg, #4361EE, #3A0CA3); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .tech-item:nth-child(9) .tech-icon { color: #FF9E00; background: linear-gradient(45deg, #FF9E00, #FF5E00); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .tech-item:nth-child(10) .tech-icon { color: #06D6A0; background: linear-gradient(45deg, #06D6A0, #4ECDC4); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .tech-item:nth-child(11) .tech-icon { color: #7209B7; background: linear-gradient(45deg, #7209B7, #F72585); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .tech-item:nth-child(12) .tech-icon { color: #118AB2; background: linear-gradient(45deg, #118AB2, #06D6A0); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+        .tech-item:hover .tech-icon {
+            transform: scale(1.2) rotate(10deg);
+            filter: brightness(1.2);
+        }
+
+        .tech-item h4 {
+            font-size: 1.1rem;
+            margin-bottom: var(--spacing-sm);
+            color: var(--text-dark);
+            font-weight: 600;
+        }
+
+        .tech-item p {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        /* ============================================
+           CONTACT SECTION
+        ============================================ */
+        .contact {
+            padding: var(--spacing-xxl) var(--spacing-lg);
+            background: linear-gradient(135deg, var(--off-white), var(--white));
+        }
+
+        .contact .section-title h2 {
+            color: var(--dark-red);
+            font-size: 2.5rem;
+        }
+
+        .contact .section-title p {
+            max-width: 600px;
+            margin: var(--spacing-md) auto var(--spacing-xxl);
+            color: var(--text-dark);
+        }
+
+        .contact-inner {
+            display: flex;
+            justify-content: center;
+            gap: var(--spacing-xl);
+            flex-wrap: wrap;
+            max-width: 1000px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .contact-form {
+            display: contents;
+        }
+
+        .form-box {
+            background-color: var(--white);
+            border-radius: var(--border-radius-md);
+            padding: var(--spacing-xl);
+            box-shadow: var(--shadow-lg);
+            width: 100%;
+            max-width: 450px;
+        }
+
+        .form-box h3 {
+            color: var(--text-dark);
+            margin-bottom: var(--spacing-lg);
+            font-size: 1.25rem;
+        }
+
+        .form-group {
+            margin-bottom: var(--spacing-lg);
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: var(--spacing-sm);
+            color: var(--darker-bg);
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+
+        .form-group label .required {
+            color: var(--primary-red);
+        }
+
+        .form-input {
+            width: 100%;
+            padding: var(--spacing-md);
+            border: 1px solid rgba(34, 47, 61, 0.3);
+            border-radius: var(--border-radius-sm);
+            font-size: 0.9rem;
+            font-family: inherit;
+            transition: border-color var(--transition-fast);
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary-blue);
+            box-shadow: 0 0 0 3px rgba(26, 26, 94, 0.1);
+        }
+
+        textarea.form-input {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .file-upload {
+            border: 2px dashed var(--primary-blue);
+            border-radius: var(--border-radius-sm);
+            padding: var(--spacing-xl);
+            text-align: center;
+            cursor: pointer;
+            color: var(--primary-blue);
+            transition: all var(--transition-fast);
+        }
+
+        .file-upload:hover {
+            background-color: rgba(26, 26, 94, 0.05);
+        }
+
+        .file-upload input[type="file"] {
+            display: none;
+        }
+
+        .file-upload i {
+            font-size: 2rem;
+            margin-bottom: var(--spacing-sm);
+            display: block;
+        }
+
+        .submit-btn {
+            background-color: var(--primary-red);
+            color: var(--white);
+            padding: var(--spacing-md) var(--spacing-xl);
+            border-radius: var(--border-radius-md);
+            font-size: 1rem;
+            font-weight: 600;
+            width: 100%;
+        }
+
+        .submit-btn:hover {
+            background-color: var(--dark-red);
+        }
+
+        .contact-img {
+            position: absolute;
+            right: -150px;
+            bottom: -50px;
+            max-width: 200px;
+            pointer-events: none;
+        }
+
+        /* ============================================
+           TESTIMONIALS SECTION
+        ============================================ */
+        .testimonials {
+            padding: var(--spacing-xxl) var(--spacing-lg);
+            text-align: center;
+        }
+
+        .testimonials h2 {
+            color: var(--dark-red);
+            font-size: 2rem;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .testimonials h3 {
+            font-size: 1.25rem;
+            color: var(--text-dark);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .testimonials > p {
+            max-width: 700px;
+            margin: 0 auto;
+            color: var(--text-medium);
+            line-height: 1.8;
+        }
+
+        /* ============================================
+           NEWS SECTION
+        ============================================ */
+        .news {
+            padding: var(--spacing-xxl) var(--spacing-lg);
+        }
+
+        .news h2 {
+            text-align: center;
+            color: var(--dark-red);
+            font-size: 2rem;
+            margin-bottom: var(--spacing-xxl);
+        }
+
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--spacing-xl);
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .news-item {
+            background-color: var(--off-white);
+            box-shadow: var(--shadow-md);
+            padding: var(--spacing-xl);
+            transition: all var(--transition-normal);
+        }
+
+        .news-item:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .news-item h4 {
+            font-size: 1rem;
+            color: var(--text-dark);
+            margin-bottom: var(--spacing-md);
+            line-height: 1.4;
+        }
+
+        .news-item p {
+            font-size: 0.9rem;
+            color: var(--text-medium);
+            line-height: 1.6;
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .news-item img {
+            width: 100%;
+            max-width: 200px;
+            margin: 0 auto;
+            border-radius: var(--border-radius-md);
+        }
+
+        .news-item hr {
+            border: none;
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+            margin-top: var(--spacing-lg);
+        }
+
+        .btn-blue {
+            background-color: var(--primary-blue);
+            color: var(--white);
+            padding: var(--spacing-md) var(--spacing-xl);
+            border-radius: var(--border-radius-lg);
+            font-size: 1rem;
+            display: inline-block;
+            margin-top: var(--spacing-xxl);
+        }
+
+        .btn-blue:hover {
+            background-color: rgba(26, 26, 94, 0.8);
+        }
+
+        /* ============================================
+           FOOTER
+        ============================================ */
+        .footer {
+            background-color: var(--white);
+            padding-top: var(--spacing-xxl);
+        }
+
+        .footer-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: var(--spacing-xxl);
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 var(--spacing-lg) var(--spacing-xxl);
+        }
+
+        .footer-col h3 {
+            color: var(--text-dark);
+            font-size: 1rem;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .footer-col ul li {
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .footer-col ul li a {
+            color: var(--text-medium);
+            font-size: 0.9rem;
+        }
+
+        .footer-col ul li a:hover {
+            color: var(--primary-red);
+        }
+
+        .social-icons {
+            display: flex;
+            gap: var(--spacing-md);
+        }
+
+        .social-icons img {
+            width: 30px;
+            height: auto;
+            transition: transform var(--transition-fast);
+        }
+
+        .social-icons a:hover img {
+            transform: scale(1.1);
+        }
+
+        /* Footer Offices */
+        .footer-offices {
+            background-color: var(--darker-red);
+            color: var(--white);
+            padding: var(--spacing-xxl) var(--spacing-lg);
+        }
+
+        .offices-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--spacing-xl);
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .office h4 {
+            font-size: 1rem;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .office p,
+        .office a {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+
+        .office a:hover {
+            text-decoration: underline;
+        }
+
+        .footer-bottom {
+            background-color: var(--off-white);
+            padding: var(--spacing-lg);
+            text-align: center;
+        }
+
+        .footer-bottom p {
+            color: var(--text-medium);
+            font-size: 0.85rem;
+        }
+
+        /* ============================================
+           WHATSAPP BUTTON
+        ============================================ */
+        .whatsapp {
+            position: fixed;
+            right: var(--spacing-lg);
+            bottom: var(--spacing-lg);
+            z-index: 1000;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            transition: transform var(--transition-fast);
+        }
+
+        .whatsapp:hover {
+            transform: scale(1.1);
+        }
+
+        .whatsapp img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* ============================================
+           RESPONSIVE STYLES
+        ============================================ */
+        @media screen and (max-width: 1200px) {
+            .hero-img {
+                max-width: 40%;
+            }
+
+            .contact-img {
+                display: none;
+            }
+        }
+
+        @media screen and (max-width: 992px) {
+            .library-inner {
+                grid-template-columns: 1fr;
+            }
+
+            .library-side {
+                position: relative;
+                top: 0;
+                text-align: center;
+            }
+
+            .library-char {
+                max-width: 300px;
+                margin: var(--spacing-xl) auto;
+            }
+
+            .title-flex {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .trophy-img {
+                margin: 0 auto;
+            }
+        }
+
+        @media screen and (max-width: 768px) {
+            :root {
+                --header-height: 70px;
+            }
+
+            .header {
+                padding: var(--spacing-sm) var(--spacing-md);
+            }
+
+            .nav {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: var(--primary-red);
+                flex-direction: column;
+                padding: var(--spacing-lg);
+                gap: var(--spacing-sm);
+            }
+
+            .nav.active {
+                display: flex;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .hero {
+                padding-top: calc(var(--header-height) + var(--spacing-xl));
+            }
+
+            .hero-content {
+                text-align: center;
+                padding: var(--spacing-lg);
+            }
+
+            .hero-img {
+                position: relative;
+                max-width: 80%;
+                margin: var(--spacing-xl) auto 0;
+            }
+
+            .hero-title {
+                font-size: 1.2rem;
+            }
+
+            .stats-box {
+                flex-direction: column;
+                padding: var(--spacing-lg);
+            }
+
+            .stat {
+                width: 100%;
+                border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+                padding-bottom: var(--spacing-lg);
+            }
+
+            .stat:last-child {
+                border-bottom: none;
+                padding-bottom: 0;
+            }
+
+            .library {
+                padding: var(--spacing-xl) var(--spacing-md);
+                margin: var(--spacing-md);
+                border-radius: var(--border-radius-md);
+            }
+
+            .games-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: var(--spacing-md);
+            }
+
+            .game-card img {
+                height: 80px;
+            }
+
+            .services-grid,
+            .tech-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-inner {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .form-box {
+                max-width: 100%;
+            }
+
+            .news-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-links {
+                grid-template-columns: 1fr 1fr;
+                text-align: center;
+            }
+
+            .social-icons {
+                justify-content: center;
+            }
+
+            .offices-grid {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            .logo-main {
+                font-size: 1rem;
+            }
+
+            .logo-sub {
+                font-size: 0.7rem;
+            }
+
+            .logo-img {
+                width: 45px;
+            }
+
+            .games-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .stat-num {
+                font-size: 1.5rem;
+            }
+
+            .footer-links {
+                grid-template-columns: 1fr;
+            }
+
+            .tech-icon {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- ============================================
+         HEADER
+    ============================================ -->
+    <header class="header" role="banner">
+        <div class="logo-container">
+            <img class="logo-img" src="logo.png" alt="Game Storm Studios Logo">
+            <div class="logo-text">
+                <span class="logo-main">THE GAMESTORM</span>
+                <span class="logo-sub">S T U D I O S</span>
+            </div>
+        </div>
+
+        <button class="menu-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+            <i class="fas fa-bars"></i>
+        </button>
+
+        <nav class="nav" role="navigation" aria-label="Main navigation">
+            <a href="./index.html">Home</a>
+            <a href="./games.html">Games</a>
+            <a href="./news.html">News</a>
+            <a href="./careers.html">Careers</a>
+            <a href="./about.html">About</a>
+        </nav>
+
+        <div class="header-actions">
+            <button class="search-btn" aria-label="Search">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+            <div class="lang-selector">
+                <button aria-label="Switch to English">
+                    <img class="flag" src="flag.png" alt="US Flag">
+                </button>
+                <button aria-label="Switch to Arabic">
+                    <img class="flag" src="flag-saudi-Arabia.png" alt="Saudi Arabia Flag">
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- ============================================
+         MAIN CONTENT
+    ============================================ -->
+    <main>
+        <!-- Hero Section -->
+        <section class="hero" id="home">
+            <div class="hero-content">
+                <h1 class="hero-title">
+                    The Game Storm Studios Incorporated<br>
+                    GAME DEVELOPMENT STUDIO AND PUBLISHERS
+                </h1>
+                <p class="hero-desc">
+                    The Game Storm Studios Incorporated is a leading game development company dedicated to delivering exceptional experiences to both clients and players. We specialize in creating high-quality mobile games and applications, offering customized development services for iOS and Android platforms.
+                </p>
+                <a href="#contact" class="btn-main">Get In Touch</a>
+            </div>
+            <div class="hero-img" aria-hidden="true">
+                <img src="./paa.png" alt="" loading="lazy">
+            </div>
+
+            <!-- Stats Container -->
+            <div class="stats-box">
+                <div class="stat">
+                    <span class="stat-num">12+</span>
+                    <span class="stat-label">Years of Innovation</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-num">5,000+</span>
+                    <span class="stat-label">Creative Ideas</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-num">1000+</span>
+                    <span class="stat-label">Games Brought to Life</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-num">1B+</span>
+                    <span class="stat-label">Downloads Globally</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Library Section -->
+        <section class="library" id="games" aria-label="Game Library">
+            <div class="library-inner">
+                <aside class="library-side">
+                    <h2>Our Library</h2>
+                    <img class="library-char" src="cartoon girl.png" alt="Game Character Mascot" loading="lazy">
+                </aside>
+                <div class="games-grid">
+                    <article class="game-card">
+                        <img src="./zia.png" alt="Game: Zia Adventure" loading="lazy">
+                    </article>
+                    <article class="game-card">
+                        <img src="./pap.png" alt="Game: Pap Runner" loading="lazy">
+                    </article>
+                    <article class="game-card">
+                        <img src="./Police Dog Robot Car Games.png" alt="Police Dog Robot Car Games" loading="lazy">
+                    </article>
+                    <article class="game-card">
+                        <img src="./Cooking Day Master Chef Games (1).png" alt="Cooking Day Master Chef Games" loading="lazy">
+                    </article>
+                    <article class="game-card">
+                        <img src="./mam.png" alt="Game: Mam Quest" loading="lazy">
+                    </article>
+                    <article class="game-card">
+                        <img src="./Evolve.png" alt="Evolve Game" loading="lazy">
+                    </article>
+                    <article class="game-card">
+                        <img src="./malaika.png" alt="Game: Malaika" loading="lazy">
+                    </article>
+                    <article class="game-card">
+                        <img src="./Police Sniper Gun Shooting 3D.png" alt="Police Sniper Gun Shooting 3D" loading="lazy">
+                    </article>
+                    <article class="game-card">
+                        <img src="./Army Sniper Gun Games Offline.png" alt="Army Sniper Gun Games Offline" loading="lazy">
+                    </article>
+                    <article class="game-card">
+                        <img src="./US Police Dog City Crime Chase.png" alt="US Police Dog City Crime Chase" loading="lazy">
+                    </article>
+                    <article class="game-card">
+                        <img src="./Police Dog Crime Highway Chase.png" alt="Police Dog Crime Highway Chase" loading="lazy">
+                    </article>
+                    <article class="game-card">
+                        <img src="./Elite Commando Shooting Game.png" alt="Elite Commando Shooting Game" loading="lazy">
+                    </article>
+                    <article class="game-card">
+                        <img src="./Car Parking Order Car Games.png" alt="Car Parking Order Car Games" loading="lazy">
+                    </article>
+                    <article class="game-card">
+                        <img src="./paaa.png" alt="Game: Paaa Adventure" loading="lazy">
+                    </article>
+                    <article class="game-card">
+                        <img src="./Unbolt It.png" alt="Unbolt It Puzzle Game" loading="lazy">
+                    </article>
+                    <article class="game-card">
+                        <img src="./Farm Day Farming Offline Games.png" alt="Farm Day Farming Offline Games" loading="lazy">
+                    </article>
+                    <article class="game-card">
+                        <img src="./roop.png" alt="Game: Roop" loading="lazy">
+                    </article>
+                    <article class="game-card">
+                        <img src="./Last Commando Gun Game Offline.png" alt="Last Commando Gun Game Offline" loading="lazy">
+                    </article>
+                    <article class="game-card">
+                        <img src="./Triple Sort Matching 3D.png" alt="Triple Sort Matching 3D" loading="lazy">
+                    </article>
+                    <article class="game-card">
+                        <img src="./Police Car Driving School Game.png" alt="Police Car Driving School Game" loading="lazy">
+                    </article>
+                    <article class="game-card">
+                        <img src="./raap.png" alt="Game: Raap" loading="lazy">
+                    </article>
+                    <article class="game-card">
+                        <img src="./Sniper Shooter FPS Shooting 3D.png" alt="Sniper Shooter FPS Shooting 3D" loading="lazy">
+                    </article>
+                    <article class="game-card">
+                        <img src="./Nuts Color Sort  Bolts Puzzle.png" alt="Nuts Color Sort Bolts Puzzle" loading="lazy">
+                    </article>
+                    <article class="game-card">
+                        <img src="./Idle Mining Tycoon Stone Miner-512.png" alt="Idle Mining Tycoon Stone Miner" loading="lazy">
+                    </article>
+                    <article class="game-card">
+                        <img src="./Unblock It Car Puzzle Game.png" alt="Unblock It Car Puzzle Game" loading="lazy">
+                    </article>
+                    <article class="game-card">
+                        <img src="./US Cop Car Chase Game 3d.png" alt="US Cop Car Chase Game 3D" loading="lazy">
+                    </article>
+                    <article class="game-card">
+                        <img src="./Crime City - Street Driving.png" alt="Crime City Street Driving" loading="lazy">
+                    </article>
+                    <article class="game-card">
+                        <img src="./Karate Kung Fu Fighting Game.png" alt="Karate Kung Fu Fighting Game" loading="lazy">
+                    </article>
+                    <article class="game-card">
+                        <img src="./last Wild Dino Hunter Hunting Game.png" alt="Wild Dino Hunter Hunting Game" loading="lazy">
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section class="services" id="services" aria-label="Our Services">
+            <div class="title-flex">
+                <img class="trophy-img" src="./gold-trophy.png" alt="Trophy icon representing excellence" loading="lazy">
+                <div class="title-content">
+                    <h2>Studio Services & Capabilities</h2>
+                    <p>At Game Storm Studios, we create world-class digital experiences by combining creativity, technology, and data-driven insights. We deliver solutions that inspire players and empower clients across platforms globally.</p>
+                </div>
+            </div>
+
+            <div class="services-grid">
+                <div class="service-item">
+                    <div class="service-header">
+                        <i class="fas fa-dice-d20 service-icon" aria-hidden="true"></i>
+                        <h3>Game Design & Development</h3>
+                    </div>
+                    <p>From concept to launch, we craft immersive 2D/3D experiences using Unity and Unreal for mobile, PC, and console.</p>
+                </div>
+
+                <div class="service-item">
+                    <div class="service-header">
+                        <i class="fas fa-mobile-alt service-icon" aria-hidden="true"></i>
+                        <h3>Native iOS & Android App Development</h3>
+                    </div>
+                    <p>High-performance native apps built with Swift, Kotlin, and SDKs for seamless user experiences.</p>
+                </div>
+
+                <div class="service-item">
+                    <div class="service-header">
+                        <i class="fas fa-paint-brush service-icon" aria-hidden="true"></i>
+                        <h3>Art & Animation</h3>
+                    </div>
+                    <p>2D/3D characters, environments, VFX, and cinematic-quality animation that bring worlds to life.</p>
+                </div>
+
+                <div class="service-item">
+                    <div class="service-header">
+                        <i class="fas fa-chart-pie service-icon" aria-hidden="true"></i>
+                        <h3>UA & Monetization</h3>
+                    </div>
+                    <p>Grow your audience and revenue with performance-driven user acquisition and monetization strategies.</p>
+                </div>
+
+                <div class="service-item">
+                    <div class="service-header">
+                        <i class="fas fa-chart-line service-icon" aria-hidden="true"></i>
+                        <h3>Analytics & BI Solutions</h3>
+                    </div>
+                    <p>Comprehensive dashboards, KPI tracking, and predictive insights to drive smarter decisions.</p>
+                </div>
+
+                <div class="service-item">
+                    <div class="service-header">
+                        <i class="fas fa-robot service-icon" aria-hidden="true"></i>
+                        <h3>AI & Machine Learning</h3>
+                    </div>
+                    <p>Procedural content generation, adaptive gameplay, and intelligent player personalization.</p>
+                </div>
+
+                <div class="service-item">
+                    <div class="service-header">
+                        <i class="fas fa-link service-icon" aria-hidden="true"></i>
+                        <h3>Blockchain & NFT Integration</h3>
+                    </div>
+                    <p>Secure, scalable Web3 integration for NFT assets, in-game economies, and player-owned ecosystems.</p>
+                </div>
+
+                <div class="service-item">
+                    <div class="service-header">
+                        <i class="fas fa-cloud-upload-alt service-icon" aria-hidden="true"></i>
+                        <h3>Cloud Infrastructure & DevOps</h3>
+                    </div>
+                    <p>CI/CD, testing, and deployment pipelines for reliable and scalable live environments.</p>
+                </div>
+
+                <div class="service-item">
+                    <div class="service-header">
+                        <i class="fas fa-vr-cardboard service-icon" aria-hidden="true"></i>
+                        <h3>AR & VR Development</h3>
+                    </div>
+                    <p>Immersive and interactive AR/VR experiences for gaming, simulation, and training.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Partner Section -->
+        <section class="partner" aria-label="Why Partner With Us">
+            <h2>Why Partner With Us</h2>
+            <p>From indie studios to global publishers, we empower our partners with innovation, creativity, and proven results. With over 12 years of experience, 1,000+ successful launches, and 1B+ downloads, we bring the expertise and technology to create games that truly stand out. Partner with Game Storm Studios — where ideas become experiences, and experiences become success stories.</p>
+            <a href="#contact" class="btn-red">Get in Touch</a>
+        </section>
+
+        <!-- Tech Stack Section -->
+        <section class="tech" aria-label="Our Tech Stack">
+            <div class="section-title">
+                <h2>Our Tech Stack</h2>
+                <p>At <span class="highlight">Game Storm Studios</span>, we build high-performance, scalable, and future-ready games and apps using proven technologies and cutting-edge innovations. From <span class="highlight">mobile to console, AI to blockchain</span>, our technical ecosystem ensures every product we deliver stands out in quality, performance, and player experience.</p>
+            </div>
+
+            <div class="tech-grid">
+                <div class="tech-item">
+                    <i class="fab fa-unity tech-icon" aria-hidden="true"></i>
+                    <h4>Game Engines</h4>
+                    <p>Unity, Unreal Engine, Godot for cross-platform game development.</p>
+                </div>
+                <div class="tech-item">
+                    <i class="fab fa-app-store-ios tech-icon" aria-hidden="true"></i>
+                    <h4>Mobile Development</h4>
+                    <p>Swift, Kotlin, React Native, Flutter for iOS and Android platforms.</p>
+                </div>
+                <div class="tech-item">
+                    <i class="fas fa-server tech-icon" aria-hidden="true"></i>
+                    <h4>Backend & APIs</h4>
+                    <p>Node.js, Python, Java, REST APIs, GraphQL for robust server architecture.</p>
+                </div>
+                <div class="tech-item">
+                    <i class="fas fa-database tech-icon" aria-hidden="true"></i>
+                    <h4>Database Solutions</h4>
+                    <p>MongoDB, PostgreSQL, Redis, Firebase for scalable data management.</p>
+                </div>
+                <div class="tech-item">
+                    <i class="fab fa-aws tech-icon" aria-hidden="true"></i>
+                    <h4>Cloud Services</h4>
+                    <p>AWS, Google Cloud, Azure for reliable hosting and deployment.</p>
+                </div>
+                <div class="tech-item">
+                    <i class="fas fa-brain tech-icon" aria-hidden="true"></i>
+                    <h4>AI & ML</h4>
+                    <p>TensorFlow, PyTorch, OpenAI for intelligent game features.</p>
+                </div>
+                <div class="tech-item">
+                    <i class="fab fa-ethereum tech-icon" aria-hidden="true"></i>
+                    <h4>Blockchain</h4>
+                    <p>Ethereum, Solidity, Web3.js for NFT and crypto integration.</p>
+                </div>
+                <div class="tech-item">
+                    <i class="fas fa-cube tech-icon" aria-hidden="true"></i>
+                    <h4>3D & Animation</h4>
+                    <p>Blender, Maya, ZBrush, Spine for stunning visual assets.</p>
+                </div>
+                <div class="tech-item">
+                    <i class="fas fa-chart-bar tech-icon" aria-hidden="true"></i>
+                    <h4>Analytics</h4>
+                    <p>GameAnalytics, Mixpanel, Amplitude for player insights.</p>
+                </div>
+                <div class="tech-item">
+                    <i class="fas fa-cogs tech-icon" aria-hidden="true"></i>
+                    <h4>DevOps</h4>
+                    <p>Docker, Kubernetes, Jenkins, GitHub Actions for CI/CD.</p>
+                </div>
+                <div class="tech-item">
+                    <i class="fas fa-vr-cardboard tech-icon" aria-hidden="true"></i>
+                    <h4>AR/VR</h4>
+                    <p>ARKit, ARCore, Oculus SDK, OpenXR for immersive experiences.</p>
+                </div>
+                <div class="tech-item">
+                    <i class="fas fa-vial tech-icon" aria-hidden="true"></i>
+                    <h4>Testing & QA</h4>
+                    <p>Selenium, Appium, Unity Test Framework for quality assurance.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section class="contact" id="contact" aria-label="Contact Us">
+            <div class="section-title">
+                <h2>GET IN TOUCH</h2>
+                <p>Have an idea or proposal? Let's build something amazing together.</p>
+            </div>
+
+            <div class="contact-inner">
+                <form class="contact-form" id="projectForm" action="#" method="POST">
+                    <div class="form-box">
+                        <h3>Share your project idea with us</h3>
+                        
+                        <div class="form-group">
+                            <label for="name">Name <span class="required">*</span></label>
+                            <input type="text" id="name" name="name" class="form-input" placeholder="Enter your name" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">Email Address <span class="required">*</span></label>
+                            <input type="email" id="email" name="email" class="form-input" placeholder="Enter your email" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="topic">Topic <span class="required">*</span></label>
+                            <select id="topic" name="topic" class="form-input" required>
+                                <option value="">Select a topic</option>
+                                <option value="game-development">Game Design & Development</option>
+                                <option value="app-development">Native iOS & Android App Development</option>
+                                <option value="art-animation">Art & Animation</option>
+                                <option value="ua-monetization">UA & Monetization</option>
+                                <option value="analytics">Analytics & BI Solutions</option>
+                                <option value="ai-ml">AI & Machine Learning</option>
+                                <option value="blockchain">Blockchain & NFT Integration</option>
+                                <option value="cloud-devops">Cloud Infrastructure & DevOps</option>
+                                <option value="ar-vr">AR & VR Development</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="phone">Contact Number</label>
+                            <input type="tel" id="phone" name="phone" class="form-input" placeholder="e.g. +92 300 1234567">
+                        </div>
+                    </div>
+
+                    <div class="form-box">
+                        <div class="form-group">
+                            <label for="details">Project Details</label>
+                            <textarea id="details" name="details" class="form-input" placeholder="Describe your project..." rows="5"></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="document">Document (Optional)</label>
+                            <label class="file-upload" for="document" tabindex="0" role="button">
+                                <i class="fas fa-cloud-upload-alt" aria-hidden="true"></i>
+                                <p>Click to upload or drag and drop</p>
+                                <input type="file" id="document" name="document" accept=".pdf,.doc,.docx,.txt">
+                            </label>
+                        </div>
+
+                        <div class="form-group">
+                            <button type="submit" class="submit-btn">Submit</button>
+                        </div>
+                    </div>
+                </form>
+
+                <div class="contact-img" aria-hidden="true">
+                    <img src="girl phone-png.png" alt="" loading="lazy">
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials Section -->
+        <section class="testimonials" aria-label="Client Testimonials">
+            <h2>Client Testimonials</h2>
+            <h3>Voices from Around the World</h3>
+            <p>Our clients span continents, genres, and platforms — but they all share one thing in common: a passion for quality and innovation. Discover what they say about partnering with GSS.</p>
+        </section>
+
+        <!-- News Section -->
+        <section class="news" id="news" aria-label="News and Dev Log">
+            <h2>News & Dev Log</h2>
+
+            <div class="news-grid">
+                <article class="news-item">
+                    <h4>Global Winners of USAID Green Alliance Gaming Challenge Award</h4>
+                    <p>In a landmark achievement for Pakistan's gaming and technology sector, The Game Storm Studios (Pvt.) Ltd. has been named among the Top 3...</p>
+                    <img src="proper.png" alt="USAID Green Alliance Gaming Challenge Award Certificate" loading="lazy">
+                    <hr>
+                </article>
+
+                <article class="news-item">
+                    <h4>Game Storm Studios Named Pakistan's Best Software House for 2022 by LCCI</h4>
+                    <p>The Game Storm (Pvt.) Ltd., one of Pakistan's leading mobile game development companies, has been recognized by the Lahore Chamber of...</p>
+                    <img src="ttttttpppp.png" alt="LCCI Best Software House Award Certificate" loading="lazy">
+                    <hr>
+                </article>
+
+                <article class="news-item">
+                    <h4>Presidential Award for Pakistan's Best Software House, The Game Storm...</h4>
+                    <p>The Game Storm Studios (Pvt.) Ltd. has been recognized among Pakistan's leading technology innovators, received the Presidential Award for Best...</p>
+                    <img src="tt.png" alt="Presidential Award Certificate" loading="lazy">
+                    <hr>
+                </article>
+            </div>
+
+            <div style="text-align: center;">
+                <a href="./news.html" class="btn-blue">View All News</a>
+            </div>
+        </section>
+    </main>
+
+    <!-- ============================================
+         FOOTER
+    ============================================ -->
+    <footer class="footer" role="contentinfo">
+        <div class="footer-links">
+            <div class="footer-col">
+                <h3>Explore</h3>
+                <ul>
+                    <li><a href="./games.html">Games</a></li>
+                    <li><a href="./community.html">Community</a></li>
+                    <li><a href="./careers.html">Careers</a></li>
+                    <li><a href="./support.html">Support</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h3>Legal</h3>
+                <ul>
+                    <li><a href="./privacy.html">Privacy Policy</a></li>
+                    <li><a href="./terms.html">Terms of Service</a></li>
+                    <li><a href="./cookies.html">Cookie Policy</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h3>Follow Us</h3>
+                <div class="social-icons">
+                    <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Follow us on Facebook">
+                        <img src="./facebook-min-png.png" alt="Facebook">
+                    </a>
+                    <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" aria-label="Follow us on Twitter">
+                        <img src="./twitter-min-png.png" alt="Twitter">
+                    </a>
+                    <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Follow us on Instagram">
+                        <img src="./instagram-min.png" alt="Instagram">
+                    </a>
+                    <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" aria-label="Subscribe on YouTube">
+                        <img src="./youtube-min.png" alt="YouTube">
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-offices">
+            <div class="offices-grid">
+                <div class="office">
+                    <h4>Lahore Office</h4>
+                    <p>15th Floor, Arfa Software Technology Park,<br>346-B, Ferozepur Road, Lahore</p>
+                </div>
+
+                <div class="office">
+                    <h4>Karachi Office</h4>
+                    <p>Office # 608, Parsa Tower,<br>Shahra-e-Faisal Karachi, Pakistan</p>
+                </div>
+
+                <div class="office">
+                    <h4>USA Office</h4>
+                    <p>520 Smoke Tree Dr Murphy<br>75094, Texas, USA</p>
+                </div>
+
+                <div class="office">
+                    <h4>Dubai Office</h4>
+                    <p>308, Tiffany Tower, Cluster W,<br>JLT, Dubai, UAE</p>
+                </div>
+
+                <div class="office">
+                    <h4>Email</h4>
+                    <a href="mailto:info@thegamestormstudios.com">info@thegamestormstudios.com</a>
+                </div>
+
+                <div class="office">
+                    <h4>Phone</h4>
+                    <a href="tel:+14099953386">+1 409 9953 386</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2025 Game Storm Studios. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- WhatsApp Button -->
+    <a href="https://wa.me/14099953386" class="whatsapp" target="_blank" rel="noopener noreferrer" aria-label="Contact us on WhatsApp">
+        <img src="./image.png" alt="WhatsApp">
+    </a>
+
+    <!-- JavaScript - Beginner Friendly Version -->
+    <script>
+        // Wait for the page to fully load
+        window.addEventListener('DOMContentLoaded', function() {
+            // Get elements
+            var menuButton = document.querySelector('.menu-toggle');
+            var navMenu = document.querySelector('.nav');
+            var fileInput = document.getElementById('document');
+            var fileUploadText = document.querySelector('.file-upload p');
+            var contactForm = document.getElementById('projectForm');
+            var allPageLinks = document.querySelectorAll('a[href^="#"]');
+            var pageHeader = document.querySelector('.header');
+
+            // 1. Mobile Menu Toggle
+            if (menuButton && navMenu) {
+                menuButton.addEventListener('click', function() {
+                    // Toggle menu visibility
+                    navMenu.classList.toggle('active');
+                    
+                    // Change menu icon
+                    var menuIcon = this.querySelector('i');
+                    if (navMenu.classList.contains('active')) {
+                        menuIcon.classList.remove('fa-bars');
+                        menuIcon.classList.add('fa-times');
+                        menuButton.setAttribute('aria-expanded', 'true');
+                    } else {
+                        menuIcon.classList.remove('fa-times');
+                        menuIcon.classList.add('fa-bars');
+                        menuButton.setAttribute('aria-expanded', 'false');
+                    }
+                });
+            }
+
+            // 2. File Upload Label Update
+            if (fileInput && fileUploadText) {
+                fileInput.addEventListener('change', function() {
+                    if (this.files.length > 0) {
+                        // Show the selected file name
+                        fileUploadText.textContent = this.files[0].name;
+                    } else {
+                        // Show default text
+                        fileUploadText.textContent = 'Click to upload or drag and drop';
+                    }
+                });
+            }
+
+            // 3. Form Submission
+            if (contactForm) {
+                contactForm.addEventListener('submit', function(event) {
+                    event.preventDefault(); // Stop form from refreshing page
+                    
+                    // Get form values
+                    var name = document.getElementById('name').value.trim();
+                    var email = document.getElementById('email').value.trim();
+                    var topic = document.getElementById('topic').value;
+                    
+                    // Check required fields
+                    if (!name || !email || !topic) {
+                        alert('Please fill in all required fields.');
+                        return;
+                    }
+                    
+                    // Check email format
+                    var emailCheck = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    if (!emailCheck.test(email)) {
+                        alert('Please enter a valid email address.');
+                        return;
+                    }
+                    
+                    // Success message
+                    alert('Thank you for your submission! We will get back to you soon.');
+                    
+                    // Reset form
+                    contactForm.reset();
+                    
+                    // Reset file upload text
+                    if (fileUploadText) {
+                        fileUploadText.textContent = 'Click to upload or drag and drop';
+                    }
+                });
+            }
+
+            // 4. Smooth Scroll for Links
+            for (var i = 0; i < allPageLinks.length; i++) {
+                allPageLinks[i].addEventListener('click', function(event) {
+                    event.preventDefault();
+                    
+                    var targetId = this.getAttribute('href');
+                    var targetElement = document.querySelector(targetId);
+                    
+                    if (targetElement) {
+                        // Calculate header height
+                        var headerHeight = pageHeader.offsetHeight;
+                        
+                        // Calculate target position
+                        var targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - headerHeight;
+                        
+                        // Smooth scroll
+                        window.scrollTo({
+                            top: targetPosition,
+                            behavior: 'smooth'
+                        });
+
+                        // Close mobile menu if open
+                        if (navMenu && navMenu.classList.contains('active')) {
+                            menuButton.click();
+                        }
+                    }
+                });
+            }
+
+            // 5. Header Scroll Effect
+            var lastScrollPosition = 0;
+            
+            window.addEventListener('scroll', function() {
+                var currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+                
+                // Add shadow when scrolling down
+                if (currentScroll > 100) {
+                    pageHeader.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.3)';
+                } else {
+                    pageHeader.style.boxShadow = '0 2px 4px rgba(255, 0, 0, 0.3)';
+                }
+                
+                lastScrollPosition = currentScroll;
+            });
+        });
+    </script>
+</body>
+</html>
